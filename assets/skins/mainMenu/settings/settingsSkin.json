@@ -1,0 +1,104 @@
+{
+  "Color": {
+    "green": {a: 1, b: 0, g: 1, r: 0},
+    "white": {a: 1, b: 1, g: 1, r: 1},
+    "red": {a: 1, b: 0, g: 0, r: 1},
+    "black": {a: 1, b: 0, g: 0, r: 0},
+    "gray": {a: 1, b: 0.8, g: 0.8, r: 0.8}
+  },
+  "com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator": {
+    "default-font": {
+      "font": "../../../fonts/MaruMonica.ttf",
+      "size": 36,
+      "mono": false,
+      "color": white,
+      "gamma": 1.8,
+      "renderCount": 2,
+      "borderWidth": 1,
+      "borderColor": black,
+      "borderStraight": false,
+      "borderGamma": 1.8,
+      "shadowOffsetX": 0,
+      "shadowOffsetY": 1,
+      "shadowColor": black,
+      "spaceX": 0,
+      "spaceY": 40,
+      "kerning": true,
+      "flip": false,
+      "genMipMaps": true,
+      "incremental": false,
+      "hinting": Full,
+      "minFilter": MipMapLinearLinear,
+      "magFilter": Linear
+    },
+    "inputLabelFont": {
+      "font": "../../../fonts/MaruMonica.ttf",
+      "size": 30,
+      "mono": false,
+      "color": white,
+      "gamma": 1.8,
+      "renderCount": 2,
+      "borderWidth": 1,
+      "borderColor": black,
+      "borderStraight": false,
+      "borderGamma": 1.8,
+      "shadowOffsetX": 0,
+      "shadowOffsetY": 1,
+      "shadowColor": black,
+      "spaceX": 0,
+      "spaceY": 40,
+      "kerning": true,
+      "flip": false,
+      "genMipMaps": true,
+      "incremental": false,
+      "hinting": Full,
+      "minFilter": MipMapLinearLinear,
+      "magFilter": Linear
+    }
+  },
+  "LabelStyle": {
+    default: {
+      font: default-font
+    },
+    inputLabel: {
+      font: inputLabelFont
+    }
+  },
+  "TextButtonStyle": {
+    default: {
+      font: default-font,
+      "up": null,
+      "down": null
+    }
+  },
+  "WindowStyle": {
+    "default": {
+      "titleFontColor": { "r": 1, "g": 1, "b": 1, "a": 1 },
+      "titleFont": "default-font"
+    }
+  },
+  "ScrollPaneStyle": {
+    "default": {
+      "vScroll": null,
+      "vScrollKnob": null,
+      "hScroll": null,
+      "hScrollKnob": null
+    }
+  },
+  "CheckBoxStyle": {
+    default: {
+      font: default-font,
+      checkboxOff: "checkboxOff",
+      checkboxOn: "checkboxOn"
+    }
+  },
+  "com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle": {
+    "default": {
+        "font": default-font,
+        "fontColor": white,
+        "disabledFontColor": gray,
+        "background": "textFieldBackground",
+        "cursor": "cursorNinePatch"
+    }
+  }
+}
