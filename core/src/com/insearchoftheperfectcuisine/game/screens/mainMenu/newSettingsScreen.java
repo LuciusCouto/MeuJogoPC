@@ -395,8 +395,6 @@ public class newSettingsScreen extends BaseScreen {
 				rightInnerTables[i].setVisible(false);
 			}
 		}
-		
-		stage.setDebugAll(true);
 	}
 
 	@Override

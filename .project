@@ -3,6 +3,8 @@
 	<name>MeuJogoPc</name>
 	<comment>Project MeuJogoPc created by Buildship.</comment>
 	<projects>
+		<project>In Search of the Perfect Cuisine-core</project>
+		<project>In Search of the Perfect Cuisine-desktop</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

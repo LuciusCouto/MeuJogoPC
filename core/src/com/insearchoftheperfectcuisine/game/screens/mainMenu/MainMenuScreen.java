@@ -6,13 +6,18 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.loaders.BitmapFontLoader.BitmapFontParameter;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -72,9 +77,10 @@ public class MainMenuScreen extends BaseScreen {
         backgroundSprite.setSize(batchViewport.getWorldWidth(), batchViewport.getWorldHeight());
         Gdx.input.setInputProcessor(stage);
         hoverSound = Gdx.audio.newSound(Gdx.files.internal("sounds/cursor.wav"));
-
-        skin = new com.ray3k.stripe.FreeTypeSkin(Gdx.files.internal("skins/mainMenu/mainMenu/mainMenuSkin.json"));
-
+		
+		skin = new com.ray3k.stripe.FreeTypeSkin();
+		skin.load(Gdx.files.internal("skins/mainMenu/mainMenu/mainMenuSkin.json"));
+		
         titleLabel = new Label("In Search of the Perfect Cuisine", skin); // Substitua pelo título do seu jogo
 
         TextButton newGameButton = new TextButton(LocalizationManager.get("mainMenu.button.newGame"), skin); // Personalize a aparência aqui
