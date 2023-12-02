@@ -17,6 +17,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -80,6 +82,10 @@ public class newSettingsScreen extends BaseScreen {
 	ScrollPane graphicsScrollPane;
 	ScrollPane soundScrollPane;
 	ScrollPane controlScrollPane;
+	Table generalScrollTable = new Table();
+	Table graphicsScrollTable = new Table();
+	Table soundScrollTable = new Table();
+	Table controlScrollTable = new Table();
 	
 	Table rightInnerTables[] = {generalInnerTable, graphicsInnerTable, soundInnerTable, controlInnerTable};
 		
@@ -193,18 +199,50 @@ public class newSettingsScreen extends BaseScreen {
 		generalButton = new TextButton(LocalizationManager.get("mainMenuSettings.button.general"), skin);
 		innerTableLeft.add(generalButton).expandX().left().top().row();
 		generalButton.addListener(cursorChangeListener);
+		generalButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				// TODO Auto-generated method stub
+				settingsShow = 0;
+				super.clicked(event, x, y);
+			}
+		});
 		
 		graphicsButton = new TextButton(LocalizationManager.get("mainMenuSettings.button.graphics"), skin);
 		innerTableLeft.add(graphicsButton).expandX().left().top().padTop(10).row();
 		graphicsButton.addListener(cursorChangeListener);
+		graphicsButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				// TODO Auto-generated method stub
+				settingsShow = 1;
+				super.clicked(event, x, y);
+			}
+		});
 		
 		soundButton = new TextButton(LocalizationManager.get("mainMenuSettings.button.sound"), skin);
 		innerTableLeft.add(soundButton).expandX().left().top().padTop(10).row();
 		soundButton.addListener(cursorChangeListener);
+		soundButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				// TODO Auto-generated method stub
+				settingsShow = 2;
+				super.clicked(event, x, y);
+			}
+		});
 		
 		controlsButton = new TextButton(LocalizationManager.get("mainMenuSettings.button.controls"), skin);
 		innerTableLeft.add(controlsButton).expandX().left().top().padTop(10).row();
 		controlsButton.addListener(cursorChangeListener);
+		controlsButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				// TODO Auto-generated method stub
+				settingsShow = 3;
+				super.clicked(event, x, y);
+			}
+		});
 		
 		TextButton saveButton = new TextButton(LocalizationManager.get("mainMenuSettings.button.save"), skin);
 		saveButton.addListener(new ClickListener() {
@@ -328,22 +366,26 @@ public class newSettingsScreen extends BaseScreen {
 		});
 
 		// Adicione botões de configuração e inputs à tabela interna
-		innerTable.add(fullscreenLabel).expandX().align(Align.left);
-		innerTable.add(fullscreenCheckbox).expandX().align(Align.right).row();
+		graphicsScrollTable.add(fullscreenLabel).expandX().align(Align.left);
+		graphicsScrollTable.add(fullscreenCheckbox).expandX().align(Align.right).row();
 		
-		innerTable.add(vsyncLabel).expandX().align(Align.left);
-		innerTable.add(vsyncCheckbox).expandX().align(Align.right).row();
+		graphicsScrollTable.add(vsyncLabel).expandX().align(Align.left);
+		graphicsScrollTable.add(vsyncCheckbox).expandX().align(Align.right).row();
 		
-		innerTable.add(fpsLabel).expandX().align(Align.left);
-		innerTable.add(fpsTextField).expandX().size(70, 40).align(Align.right).row();
+		graphicsScrollTable.add(fpsLabel).expandX().align(Align.left);
+		graphicsScrollTable.add(fpsTextField).expandX().size(70, 40).align(Align.right).row();
 
 		// Crie um ScrollPane para a tabela interna
-		scrollPane = new ScrollPane(innerTable, skin);
+		scrollPane = new ScrollPane(graphicsScrollTable, skin);
 		scrollPane.setScrollingDisabled(true, false);
 
 		// Adicione o ScrollPane à tabela externa, alinhando-o no topo
-		outerTableRight.add(scrollPane).colspan(3).growX().maxHeight((fullscreenLabel.getHeight() + 10) * 3).pad(20).row();
-
+		rightInnerTables[1].add(scrollPane).colspan(3).growX().maxHeight((fullscreenLabel.getHeight() + 10) * 3).pad(20).row();
+		
+		for (int i = 0; i < rightInnerTables.length; i++) {
+			outerTableRight.add(rightInnerTables[i]);
+		}
+		
 		cancelButton.addListener(cursorChangeListener);
 		saveButton.addListener(cursorChangeListener);
 		resetButton.addListener(cursorChangeListener);
@@ -388,7 +430,8 @@ public class newSettingsScreen extends BaseScreen {
 			fpsTextField.setDisabled(false);
 		}
 		
-		for (int i = 0; i > rightInnerTables.length; i++) {
+		for (int i = 0; i < rightInnerTables.length; i++) {
+			System.out.println(settingsShow);
 			if (i == settingsShow) {
 				rightInnerTables[i].setVisible(true);
 			} else {
