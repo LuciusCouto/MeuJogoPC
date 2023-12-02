@@ -14,7 +14,7 @@ public class LocalizationManager {
     public static void load(String language) {
     	baseFileHandle = Gdx.files.internal("i18n/MyBundle");
     	locale = new Locale(language);
-    	myBundle = I18NBundle.createBundle(baseFileHandle, locale, "UTF-8");    	
+    	myBundle = I18NBundle.createBundle(baseFileHandle, locale, "UTF-8");   
     }
 
     public static String get(String key) {
