@@ -17,26 +17,23 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.FocusListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
-import com.badlogic.gdx.scenes.scene2d.utils.FocusListener.FocusEvent;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Select;
 import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -92,7 +89,13 @@ public class newSettingsScreen extends BaseScreen {
 	// General Table
 	Label generalTitleLabel;
 	Label languageLabel;
-	Select languaeSelect;
+	String[] languageOptions = {LocalizationManager.get("mainMenuSettings.general.language.english"), 
+			LocalizationManager.get("mainMenuSettings.general.language.portuguese"),
+			LocalizationManager.get("mainMenuSettings.general.language.portuguesePortugal"),
+			LocalizationManager.get("mainMenuSettings.general.language.latin"),
+			LocalizationManager.get("mainMenuSettings.general.language.chineseSimple")};
+	
+	SelectBox<String> languageSelect;
 	
 	// Left Outer Table
 	Table innerTableLeft;
@@ -137,13 +140,18 @@ public class newSettingsScreen extends BaseScreen {
 		NinePatchDrawable ninePatchDrawableWindow = new NinePatchDrawable(ninePatchWindow);
 		
 		NinePatch ninePatchTextField = new NinePatch(txtAtlas.findRegion("checkboxOff"), 10, 10, 10, 10);
-		
 		NinePatch ninePatchCursor = new NinePatch(txtAtlas.findRegion("cursor"), 0, 0, 0, 0);
-		
+		NinePatch ninePatchSelect = new NinePatch(txtAtlas.findRegion("select"), 15, 15, 15, 4);
+		NinePatch ninePatchVScroll = new NinePatch(txtAtlas.findRegion("vScroll"), 10, 10, 10, 10);
+		NinePatch ninePatchListBackground = new NinePatch(txtAtlas.findRegion("listBackground"), 5, 5, 5, 5);
+
 		skin = new com.ray3k.stripe.FreeTypeSkin();
 		skin.addRegions(txtAtlas);
+		skin.add("vScroll", ninePatchVScroll);
+		skin.add("selectBackground", ninePatchSelect);
 		skin.add("textFieldBackground", ninePatchTextField);
-		skin.add("cursorNinePatch", ninePatchCursor);	
+		skin.add("cursorNinePatch", ninePatchCursor);
+		skin.add("ninePatchListBackground", ninePatchWindow);
 		skin.load(Gdx.files.internal("skins/mainMenu/settings/settingsSkin.json"));
 
 		InputListener cursorChangeListener = new InputListener() {
@@ -208,6 +216,23 @@ public class newSettingsScreen extends BaseScreen {
 			}
 		});
 		
+		// Right Table
+		generalScrollTable.setFillParent(true);
+		generalScrollTable.layout();
+		
+		// General Configurations
+		generalTitleLabel = new Label(LocalizationManager.get("mainMenuSettings.general.title"), skin);
+		generalScrollTable.add(generalTitleLabel).colspan(2).expandX().center().top().row();
+		
+		languageLabel = new Label(LocalizationManager.get("mainMenuSettings.general.language"), skin);
+		generalScrollTable.add(languageLabel).expandX().left().top().padTop(50);
+		
+		languageSelect = new SelectBox<>(skin);
+		languageSelect.setItems(languageOptions);
+		languageSelect.setDebug(true);
+		generalScrollTable.add(languageSelect).align(Align.left).height(languageLabel.getHeight()).width(130).expandX().right().top().padTop(50);
+		
+
 		graphicsButton = new TextButton(LocalizationManager.get("mainMenuSettings.button.graphics"), skin);
 		innerTableLeft.add(graphicsButton).expandX().left().top().padTop(10).row();
 		graphicsButton.addListener(cursorChangeListener);
@@ -378,12 +403,17 @@ public class newSettingsScreen extends BaseScreen {
 		// Crie um ScrollPane para a tabela interna
 		scrollPane = new ScrollPane(graphicsScrollTable, skin);
 		scrollPane.setScrollingDisabled(true, false);
+		
+		generalScrollPane = new ScrollPane(generalScrollTable, skin);
+		scrollPane.setScrollingDisabled(true, false);
+		
 
 		// Adicione o ScrollPane à tabela externa, alinhando-o no topo
+		rightInnerTables[0].add(generalScrollPane).growX().row();
 		rightInnerTables[1].add(scrollPane).colspan(3).growX().maxHeight((fullscreenLabel.getHeight() + 10) * 3).pad(20).row();
 		
 		for (int i = 0; i < rightInnerTables.length; i++) {
-			outerTableRight.add(rightInnerTables[i]);
+			outerTableRight.add(rightInnerTables[i]).expand().growX().top().row();
 		}
 		
 		cancelButton.addListener(cursorChangeListener);
@@ -431,7 +461,6 @@ public class newSettingsScreen extends BaseScreen {
 		}
 		
 		for (int i = 0; i < rightInnerTables.length; i++) {
-			System.out.println(settingsShow);
 			if (i == settingsShow) {
 				rightInnerTables[i].setVisible(true);
 			} else {

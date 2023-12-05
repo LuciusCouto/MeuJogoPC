@@ -34,7 +34,7 @@ prettyPrint=false
 legacyOutput=false
 
 scaleFactors=[{suffix:"",factor:1,resampling:bicubic}]
-inputFiles=[{path:../../../../Downloads/TileSetGame/checkboxOff.png,type:Input,regionName:null},{path:../../../../Downloads/TileSetGame/checkboxOn.png,type:Input,regionName:null},{path:../../../../Downloads/TileSetGame/window.png,type:Input,regionName:null},{path:../../../../Downloads/TileSetGame/cursor.png,type:Input,regionName:null}]
+inputFiles=[{path:../../../../Downloads/TileSetGame/checkboxOff.png,type:Input,regionName:null},{path:../../../../Downloads/TileSetGame/checkboxOn.png,type:Input,regionName:null},{path:../../../../Downloads/TileSetGame/window.png,type:Input,regionName:null},{path:../../../../Downloads/TileSetGame/cursor.png,type:Input,regionName:null},{path:../../../../Downloads/TileSetGame/select.png,type:Input,regionName:null},{path:../../../../Downloads/TileSetGame/vScroll.png,type:Input,regionName:null},{path:../../../../Downloads/TileSetGame/listBackground.png,type:Input,regionName:null}]
 keepInputFileExtensions=false
 
 
