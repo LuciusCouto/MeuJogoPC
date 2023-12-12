@@ -116,14 +116,28 @@
         "cursor": "cursorNinePatch"
     }
   }
+  "com.ray3k.tenpatch.TenPatchDrawable": {
+    "SelectBoxTenPatch": {
+      "region": "select",
+      "horizontalStretchAreas": [ 5, 20 ],
+      "verticalStretchAreas": [  5, 6, 18, 19 ],
+      "tiling": false,
+      "minWidth": 35,
+      "minHeight": 25,
+      "rightWidth": 20,
+      "leftWidth": 7,
+      "bottomHeight": 6,
+      "topHeight": 6
+    }
+  }
   "SelectBoxStyle": {
     "default": {
       "font": "MaruMonica24",
       "scrollStyle": "SelectBoxScrollStyle",
-      "background": "selectBackground",
-      "backgroundOpen": "selectBackground",
-      "backgroundOver": "selectBackground",
-      "listStyle": "default"
+      "background": "SelectBoxTenPatch",
+      "backgroundOpen": "SelectBoxTenPatch",
+      "backgroundOver": "SelectBoxTenPatch",
+      "listStyle": "default",
     }
   }
 }

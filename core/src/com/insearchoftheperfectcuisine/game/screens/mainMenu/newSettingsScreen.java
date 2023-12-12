@@ -141,17 +141,15 @@ public class newSettingsScreen extends BaseScreen {
 		
 		NinePatch ninePatchTextField = new NinePatch(txtAtlas.findRegion("checkboxOff"), 10, 10, 10, 10);
 		NinePatch ninePatchCursor = new NinePatch(txtAtlas.findRegion("cursor"), 0, 0, 0, 0);
-		NinePatch ninePatchSelect = new NinePatch(txtAtlas.findRegion("select"), 15, 15, 15, 4);
 		NinePatch ninePatchVScroll = new NinePatch(txtAtlas.findRegion("vScroll"), 10, 10, 10, 10);
 		NinePatch ninePatchListBackground = new NinePatch(txtAtlas.findRegion("listBackground"), 5, 5, 5, 5);
 
 		skin = new com.ray3k.stripe.FreeTypeSkin();
 		skin.addRegions(txtAtlas);
 		skin.add("vScroll", ninePatchVScroll);
-		skin.add("selectBackground", ninePatchSelect);
 		skin.add("textFieldBackground", ninePatchTextField);
 		skin.add("cursorNinePatch", ninePatchCursor);
-		skin.add("ninePatchListBackground", ninePatchWindow);
+		skin.add("ninePatchListBackground", ninePatchListBackground);
 		skin.load(Gdx.files.internal("skins/mainMenu/settings/settingsSkin.json"));
 
 		InputListener cursorChangeListener = new InputListener() {
@@ -228,10 +226,17 @@ public class newSettingsScreen extends BaseScreen {
 		generalScrollTable.add(languageLabel).expandX().left().top().padTop(50);
 		
 		languageSelect = new SelectBox<>(skin);
+		languageSelect.setAlignment(Align.left);
 		languageSelect.setItems(languageOptions);
-		languageSelect.setDebug(true);
-		generalScrollTable.add(languageSelect).align(Align.left).height(languageLabel.getHeight()).width(130).expandX().right().top().padTop(50);
-		
+		languageSelect.addListener(cursorChangeListener);
+		languageSelect.addListener(new ChangeListener() {
+		   @Override
+		   public void changed(ChangeEvent event, Actor actor) {
+			   System.out.println(languageSelect.getSelected());
+		   }
+	   	});
+		generalScrollTable.add(languageSelect).align(Align.right).expandX().right().top().padLeft(20).padTop(50);
+
 
 		graphicsButton = new TextButton(LocalizationManager.get("mainMenuSettings.button.graphics"), skin);
 		innerTableLeft.add(graphicsButton).expandX().left().top().padTop(10).row();

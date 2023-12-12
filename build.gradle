@@ -9,7 +9,6 @@ buildscript {
         google()
     }
     dependencies {
-        
 
     }
 }
@@ -67,5 +66,6 @@ project(":core") {
         api "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         implementation "com.github.raeleus.stripe:freetype:1.4.5"
+        implementation 'com.github.raeleus.TenPatch:tenpatch:5.2.3'
     }
 }
